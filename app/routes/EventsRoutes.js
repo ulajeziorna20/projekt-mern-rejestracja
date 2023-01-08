@@ -3,7 +3,7 @@ const router = express.Router()
 
 module.exports = () => {
   // GET events .get(sciezka)
-  router.get("./", (req, res, next) => {
+  router.get("/", (req, res, next) => {
     res.json({
       events: [
         {
