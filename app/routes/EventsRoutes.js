@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
 
-// import kontrolera
+// 5. import kontrolera
 const EventsController = require('../controllers/EventsController')
 
 module.exports = () => {

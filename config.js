@@ -1,4 +1,4 @@
-// ustawienia serwera
+// 11. ustawienia serwera
 
 module.exports = {
   app: {
