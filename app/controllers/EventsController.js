@@ -30,3 +30,6 @@ module.exports = {
     res.send('delete')
   }
 }
+
+
+// JESLI ROUTING I KONTROLLER DZIAŁAJĄ TO KOLEJNYM KROKIEM JEST STWORZENIE BAZYDANYCH
