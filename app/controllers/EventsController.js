@@ -6,12 +6,12 @@ module.exports = {
       events: [
         {
           name: "Krystian Dziopa",
-          ecent: { key: "frontend", val: "Front End" },
+          event: { key: "frontend", val: "Front End" },
           city: {key: 'Warsow', val: 'Warszawa'}
         },
         {
           name: "Łukasz Badocha",
-          ecent: { key: "backend", val: "Back End" },
+          event: { key: "backend", val: "Back End" },
           city: {key: 'cracow', val: 'Kraków'}
         },
       ],
@@ -19,7 +19,11 @@ module.exports = {
   },
 
   create: (req, res, next) => {
-    res.send('create')
+    // res.send('create') dla metody get
+
+    const event = req.body
+
+    res.end(JSON.stringify(event))
   },
 
   delete: (req, res, next) => {

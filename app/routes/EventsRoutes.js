@@ -9,10 +9,10 @@ module.exports = () => {
   router.get("/", EventsController.index )
 
    // POST /events/add 
-   router.get("/add", EventsController.create )
+   router.post("/add", EventsController.create )
 
     // DELETE /events/delete/:id
-  router.get("/delete", EventsController.delete )
+  router.delete("/delete/:id", EventsController.delete )
 
   // musimy jeszcze zwrócić router
   return router

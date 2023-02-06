@@ -6,6 +6,8 @@ const cors = require("cors")
 
 // tworzymy app któro bedzie uzywało cors'a
 const app = express()
+app.use(express.json())
+// dodajemy middleware, który pozwala parsowac dane które przychodzą w formacie json;'a
 app.use(cors())
 
 
