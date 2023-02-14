@@ -47,7 +47,25 @@ module.exports = {
   },
 
   delete: (req, res, next) => {
-    res.send("delete")
+    // res.send(req.params)
+
+    const id = req.params.id
+
+    EventModel.findByIdAndRemove(id, (err, event) => {
+      if (err) {
+        return res.status(500).json({
+          // te komunikaty wymslamy sami
+          message: 'Error while deleting event',
+          error: err
+        })
+      }
+
+      return res.status(200).json({
+         // te komunikaty wymslamy sami
+        id: id,
+        deleted: true
+      })
+    })
   },
 }
 
