@@ -16,73 +16,117 @@ const Form = () => {
   })
   const [errors, setErrors] = useState([])
 
+  const choicesCities = [
+    ["", "---"],
+    ["online", "Online"],
+    ["warsaw", "Warszawa"],
+    ["krakov", "Kraków"],
+  ]
 
-const choicesEvents = [
-  ['', '---'],
-  ['online', 'Online'],
-  ['warsaw', 'Warszawa'],
-  ['krakov', 'Kraków'],
+  const choicesEvents = [
+    ["", "---"],
+    ["front-end-react", "Front End - ReactJS"],
+    ["back-end-react", "Back End - ReactJS"],
+    ["full-stack-react", "Full Stack - MERN"],
+    ["tester-manual", "Tester manualny"],
+  ]
 
-]
+  const handleChangeName = (e) => {
+    setName(e.target.value)
+  }
 
-const choicesCities = [
-  ['', '---'],
-  ['front-end-react', 'Front End - ReactJS'],
-  ['back-end-react', 'Back End - ReactJS'],
-  ['full-stack-react', 'Full Stack - MERN'],
-  ['tester-manual', 'Tester manualny']
-]
+  const handleChangeEvent = (e) => {
+    console.log(e.target.value)
+    setEvent({
+      key: e.target.value,
+      value: e.target.options[e.target.selectedIndex].innerText,
+    })
+  }
 
+  const handleChangeCity = (e) => {
+    setCity({
+      key: e.target.value,
+      value: e.target.options[e.target.selectedIndex].innerText,
+    })
+  }
 
-const handleChangeName = (e) => {
-  setName(e.target.value)
-}
+  const validate = (e) => {
+    e.preventDefault()
 
-const handleChangeEvent = (e) => {
-  setEvent({
-    key: e.target.value,
-    value: e.target.options[e.target.selectedIndex].innerText
-  })
-}
+    let errorsValidate = []
 
+    if (name.trim() === "") {
+      errorsValidate.push("Wpisz imię i nazwisko")
+    }
 
-const handleChangeCity = (e) => {
-  setCity({
-    key: e.target.value,
-    value: e.target.options[e.target.selectedIndex].innerText
-  })
-}
+    if (event.key.trim() === "") {
+      errorsValidate.push("Wybierz szkolenie")
+    }
 
+    if (city.key.trim() === "") {
+      errorsValidate.push("Wybierz miasto")
+    }
 
+    if (errorsValidate.length > 0) {
+      setErrors(
+        errorsValidate.map((errorTxt, index) => {
+          return <li key={index}>{errorTxt}</li>
+        })
+      )
 
+      return false
+    }
+    saveEvent()
 
+    resetForm()
+  }
 
+  const saveEvent = (eventObj) => {
+    console.log("saveEvent")
+  }
 
-
+  const resetForm = () => {
+    setName("")
+    setEvent({
+      key: "",
+      value: "",
+    })
+    setCity({
+      key: "",
+      value: "",
+    })
+    setErrors([])
+  }
 
   return (
     <div className="form-wrapper">
-      <form action="#">
+      <form action="#" onSubmit={validate}>
         <div className="wrapper">
           <label htmlFor="name">Imie i nazwisko</label>
-        <input type="text" name="name" id="name" value={name} onChange={handleChangeName}/>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            value={name}
+            onChange={handleChangeName}
+          />
         </div>
         <div className="wrapper">
           <label htmlFor="event">Wydarzenie</label>
-          <Select 
-          values={choicesEvents}
-          selectedValue={event.key}
-          onValueChange= {handleChangeCity}
-          id='city'
+          <Select
+            values={choicesEvents}
+            selectedValue={event.key}
+            onValueChange={handleChangeEvent}
+            id="event"
           />
         </div>
         <div className="wrapper">
           <label htmlFor="city">Miasto</label>
-          <Select 
-          values={choicesCities}
-          selectedValue={event.key}
-          onValueChange= {handleChangeEvent}
-          id='events'
+          <Select
+            values={choicesCities}
+            selectedValue={city.key}
+            onValueChange={handleChangeCity}
+            id="city"
           />
         </div>
         <div className="wrapper">
@@ -91,7 +135,7 @@ const handleChangeCity = (e) => {
       </form>
 
       <div className="errorsWrapper">
-        <ul className="errors"></ul>
+        <ul className="errors">{errors}</ul>
       </div>
     </div>
   )
