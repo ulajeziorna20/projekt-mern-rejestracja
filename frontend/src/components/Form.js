@@ -6,7 +6,7 @@ import axios from "axios"
 import Select from "./Select"
 import "./Form.css"
 
-const Form = () => {
+const Form = (props) => {
   const [name, setName] = useState("")
   const [event, setEvent] = useState({
     key: "",
@@ -100,7 +100,7 @@ const Form = () => {
         mode: "cors"
       })
       .then((res) => {
-        console.log(res)
+        props.getEvents()
       })
       .catch((err) => {
         console.error(err)
