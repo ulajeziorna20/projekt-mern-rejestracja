@@ -1,5 +1,7 @@
 import { useState } from "react"
 
+import config from "../config"
+
 import axios from "axios"
 import Select from "./Select"
 import "./Form.css"
@@ -8,11 +10,11 @@ const Form = () => {
   const [name, setName] = useState("")
   const [event, setEvent] = useState({
     key: "",
-    value: "",
+    val: "",
   })
   const [city, setCity] = useState({
     key: "",
-    value: "",
+    val: "",
   })
   const [errors, setErrors] = useState([])
 
@@ -39,14 +41,14 @@ const Form = () => {
     console.log(e.target.value)
     setEvent({
       key: e.target.value,
-      value: e.target.options[e.target.selectedIndex].innerText,
+      val: e.target.options[e.target.selectedIndex].innerText,
     })
   }
 
   const handleChangeCity = (e) => {
     setCity({
       key: e.target.value,
-      value: e.target.options[e.target.selectedIndex].innerText,
+      val: e.target.options[e.target.selectedIndex].innerText,
     })
   }
 
@@ -76,24 +78,44 @@ const Form = () => {
 
       return false
     }
-    saveEvent()
+
+    // gdy walidacja sie udała tworzymy obiekt nowego eventu
+    const newEvent = {
+      name: name,
+      event: event,
+      city: city,
+    }
+    // i teraz przekazujemy obiekt eventu do funkcji saveEvent
+
+    saveEvent(newEvent)
 
     resetForm()
   }
 
   const saveEvent = (eventObj) => {
-    console.log("saveEvent")
+    console.log(JSON.stringify(eventObj))
+
+    axios
+      .post(config.api.url + "/events/add",  eventObj, {
+        mode: "cors"
+      })
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.error(err)
+      })
   }
 
   const resetForm = () => {
     setName("")
     setEvent({
       key: "",
-      value: "",
+      val: "",
     })
     setCity({
       key: "",
-      value: "",
+      val: "",
     })
     setErrors([])
   }
